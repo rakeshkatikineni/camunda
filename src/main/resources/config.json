@@ -1,0 +1,62 @@
+{
+"Collect Customer Details":{
+"actions":"PersonalDetail",
+"enable":"true"
+},
+"Collect Property Details":{
+"actions":"PropertyDetails",
+"enable":"true"
+},
+"Collect Financial Details":{
+"actions":"FinancialDetails",
+"enable":"true"
+},
+"Vehicle Loan Preview":{
+"actions":"PreviewDetails",
+"enable":"true",
+"subComponents":[
+{
+"childcomponent":"PersonalDetail",
+"enable":"true"
+},
+{
+"childcomponent":"FinancialDetails",
+"enable":"true"
+},
+{
+"childcomponent":"PropertyDetails",
+"enable":"true"
+}
+]
+
+},
+"Collect Vehicle Details":
+{
+"actions":"VehicleDetails",
+"enable":"true"
+
+},
+"Eligible amount":
+{
+"actions":"EligibleAmount",
+"enable":"true"
+},
+"Property Loan Preview":{
+"actions":"PreviewDetails",
+"enable":"true",
+"subComponents":[
+{
+"childcomponent":"PersonalDetail",
+"enable":"true"
+},
+{
+"childcomponent":"FinancialDetails",
+"enable":"true"
+},
+{
+"childcomponent":"VehicleDetails",
+"enable":"true"
+}
+]
+}
+}
