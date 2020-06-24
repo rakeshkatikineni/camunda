@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_0akx45g" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.3">
+  <decision id="Camundapocdmn" name="Camunda POC">
+    <extensionElements>
+      <biodi:bounds x="150" y="150" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1" label="DTI">
+        <inputExpression id="inputExpression_1" typeRef="double" expressionLanguage="juel">
+          <text>grossAnnualExpense/grossAnnualIncome</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Amount Percentage" name="amountpercentage" typeRef="double" />
+      <output id="OutputClause_00xil02" label="Risk Rating" name="risk_rating" typeRef="integer" />
+      <rule id="DecisionRule_0xkazmx">
+        <inputEntry id="UnaryTests_0ur75bg">
+          <text>[0.15..0.2]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0uhk6xo">
+          <text>25</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13xalby">
+          <text>1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1a6cdle">
+        <inputEntry id="UnaryTests_0l0lyxz">
+          <text>[0.2..0.25]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0a4djjd">
+          <text>20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i3ssr4">
+          <text>2</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ve75zq">
+        <inputEntry id="UnaryTests_0c2rnxu">
+          <text>[0.21..0.27]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1unz8vp">
+          <text>15</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1b4uvar">
+          <text>3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17y2llx">
+        <inputEntry id="UnaryTests_1wjcjk6">
+          <text>[0.271..0.28]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vvulqz">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h3vmjw">
+          <text>4</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ooyp1b">
+        <inputEntry id="UnaryTests_0982x0w">
+          <text>[0.281..0.29]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gmp3we">
+          <text>0</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0urxvry">
+          <text>5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09uu8qw">
+        <inputEntry id="UnaryTests_02oo3ye">
+          <text>&gt; 0.3</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1obbqu9">
+          <text>0</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0p6v1m9">
+          <text>6</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0iiplnk">
+        <inputEntry id="UnaryTests_16g77y4">
+          <text>0</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ib7ge5">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0yxk7n8">
+          <text>1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ug3i7k">
+        <inputEntry id="UnaryTests_12l9dgq">
+          <text>&gt; 0.00</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_106qbuy">
+          <text>0</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0yv89x6">
+          <text>1</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

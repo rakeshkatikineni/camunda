@@ -1,6 +1,6 @@
 {
 "Collect Customer Details":{
-"actions":"PersonalDetail",
+"actions":"CustomerDetails",
 "enable":"true"
 },
 "Collect Property Details":{

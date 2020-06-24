@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -61,9 +62,10 @@ public class ApiContoller {
 					request, String.class);
 			JSONObject json = new JSONObject(response);
 			String pid = (String) json.get("id");
-			String variables = fetchPid("app", pid);
+			String appId=insertProcessVariable(pid);
+			//String variables = fetchPid("app", pid);
 			String p = fetchChildTasks(pid);
-			Map<String, Object> variables1 = fetchActiveTasks(p, variables, true);
+			Map<String, Object> variables1 = fetchActiveTasks(p, appId, true);
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(new ApiSuccessResponse(variables1, true, "Sucessfully triggered", HttpStatus.OK));
 		} catch (Exception e) {
@@ -127,17 +129,28 @@ public class ApiContoller {
 	}
 
 	public Map<String, Object> fetchActiveTasks(String processInstanceId, String applicationNo, boolean unfinished)
-			throws IOException, ParseException {
+			throws IOException, ParseException, InterruptedException {
 		final String ROOT_URI = env.getProperty("camunda-url");
+		Double eligibleAmount = null;
+		String taskId=null;
+		org.json.simple.JSONObject componentName = null;
+		String name=null;
+		for(int i=0;i<3;i++) {
+			Thread.sleep(3000);
+		
 		String s = restTemplate.getForObject(
 				ROOT_URI + "/history/task?processInstanceId=" + processInstanceId + "&unfinished=" + unfinished,
 				String.class);
 		JSONArray json = new JSONArray(s);
-		Double eligibleAmount = null;
-		org.json.simple.JSONObject componentName = null;
+		
+	
 		JSONObject j1 = new JSONObject(json.get(0).toString());
-		String name = (String) j1.get("name");
-		String taskId = (String) j1.get("id");
+		name = (String) j1.get("name");
+		taskId = (String) j1.get("id");
+		if(name!=null && taskId!=null) {
+			break;
+		}
+		}
 		ComponentUtils c=new ComponentUtils();
 		componentName = c.fetchComponent(name);
 		if (name.equals(env.getProperty("eligiblekey"))) {
@@ -226,4 +239,26 @@ public class ApiContoller {
 		return value;
 	}
 
+	
+	private String insertProcessVariable(String pid) {
+		
+		final String ROOT_URI = env.getProperty("camunda-url");
+		 Random rand = new Random();
+		 String value=null;
+		 try {
+		 int ranInt = rand.nextInt(100000);
+		 value="PR"+ranInt;
+		 JSONObject json=new JSONObject();
+		 json.put("value", value);
+		 json.put("type", "String");
+		 HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<String> request = new HttpEntity<String>(json.toString(), headers);
+			restTemplate.put(ROOT_URI + "/process-instance/"+pid+"/variables/app", request,String.class);
+		 }catch(Exception e) {
+			 e.printStackTrace();
+		 }
+	 return value;
+		
+	}
 }

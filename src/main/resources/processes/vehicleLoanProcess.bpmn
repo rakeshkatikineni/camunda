@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_173o36h" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.7.3">
+  <bpmn:process id="vehicleLoanProcess" name="vehicleLoanProcess" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1w3t2wh</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1w3t2wh" sourceRef="StartEvent_1" targetRef="Activity_1thttkq" />
+    <bpmn:sequenceFlow id="Flow_1ec5s8c" sourceRef="Activity_1thttkq" targetRef="Activity_0wn11i3" />
+    <bpmn:sequenceFlow id="Flow_1h8yp9a" sourceRef="Activity_0wn11i3" targetRef="Activity_1lex1iy" />
+    <bpmn:sequenceFlow id="Flow_0b4x1k8" sourceRef="Activity_1lex1iy" targetRef="Activity_0an7vav" />
+    <bpmn:endEvent id="Event_1h27guk">
+      <bpmn:incoming>Flow_1jfru8y</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1a9m427" sourceRef="Activity_0an7vav" targetRef="Activity_1kwd1vb" />
+    <bpmn:userTask id="Activity_0an7vav" name="Vehicle Loan Preview" camunda:assignee="demo">
+      <bpmn:incoming>Flow_0b4x1k8</bpmn:incoming>
+      <bpmn:outgoing>Flow_1a9m427</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1thttkq" name="Collect Customer Details" camunda:assignee="demo">
+      <bpmn:incoming>Flow_1w3t2wh</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ec5s8c</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_0wn11i3" name="Collect Vehicle Details" camunda:assignee="demo">
+      <bpmn:incoming>Flow_1ec5s8c</bpmn:incoming>
+      <bpmn:outgoing>Flow_1h8yp9a</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1lex1iy" name="Collect Financial Details" camunda:assignee="demo">
+      <bpmn:incoming>Flow_1h8yp9a</bpmn:incoming>
+      <bpmn:outgoing>Flow_0b4x1k8</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1jfru8y" sourceRef="Activity_1bcoflu" targetRef="Event_1h27guk" />
+    <bpmn:userTask id="Activity_1bcoflu" name="Eligible amount" camunda:assignee="demo">
+      <bpmn:incoming>Flow_0hu5oth</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jfru8y</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:businessRuleTask id="Activity_1kwd1vb" name="Eligible Amount Calculation" camunda:resultVariable="amount" camunda:decisionRef="Camundapocdmn" camunda:mapDecisionResult="singleResult">
+      <bpmn:incoming>Flow_1a9m427</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hu5oth</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_0hu5oth" sourceRef="Activity_1kwd1vb" targetRef="Activity_1bcoflu" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="vehicleLoanProcess">
+      <bpmndi:BPMNEdge id="Flow_0hu5oth_di" bpmnElement="Flow_0hu5oth">
+        <di:waypoint x="1020" y="127" />
+        <di:waypoint x="1081" y="127" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jfru8y_di" bpmnElement="Flow_1jfru8y">
+        <di:waypoint x="1181" y="127" />
+        <di:waypoint x="1252" y="127" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1a9m427_di" bpmnElement="Flow_1a9m427">
+        <di:waypoint x="870" y="127" />
+        <di:waypoint x="920" y="127" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0b4x1k8_di" bpmnElement="Flow_0b4x1k8">
+        <di:waypoint x="700" y="127" />
+        <di:waypoint x="770" y="127" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1h8yp9a_di" bpmnElement="Flow_1h8yp9a">
+        <di:waypoint x="530" y="127" />
+        <di:waypoint x="600" y="127" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ec5s8c_di" bpmnElement="Flow_1ec5s8c">
+        <di:waypoint x="360" y="127" />
+        <di:waypoint x="430" y="127" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w3t2wh_di" bpmnElement="Flow_1w3t2wh">
+        <di:waypoint x="158" y="130" />
+        <di:waypoint x="209" y="130" />
+        <di:waypoint x="209" y="127" />
+        <di:waypoint x="260" y="127" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="122" y="112" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1h27guk_di" bpmnElement="Event_1h27guk">
+        <dc:Bounds x="1252" y="109" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00g3n9n_di" bpmnElement="Activity_0an7vav">
+        <dc:Bounds x="770" y="87" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1iywzav_di" bpmnElement="Activity_1thttkq">
+        <dc:Bounds x="260" y="87" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xmbr36_di" bpmnElement="Activity_0wn11i3">
+        <dc:Bounds x="430" y="87" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_10niuvc_di" bpmnElement="Activity_1lex1iy">
+        <dc:Bounds x="600" y="87" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1fud21m_di" bpmnElement="Activity_1bcoflu">
+        <dc:Bounds x="1081" y="87" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15u8shn_di" bpmnElement="Activity_1kwd1vb">
+        <dc:Bounds x="920" y="87" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

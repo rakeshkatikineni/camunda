@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1tlv71n" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.7.3">
+  <bpmn:process id="CamundaPocMainProcess" name="CamundaPocMainProcess" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_198esmz</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_07mdn92">
+      <bpmn:incoming>Flow_198esmz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0oz0rh0</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0bcs4qr</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_198esmz" sourceRef="StartEvent_1" targetRef="Gateway_07mdn92" />
+    <bpmn:sequenceFlow id="Flow_0oz0rh0" sourceRef="Gateway_07mdn92" targetRef="Activity_1vwqlz8">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${loanType=="propertyloan"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_1tnqkw3">
+      <bpmn:incoming>Flow_0lshgre</bpmn:incoming>
+      <bpmn:incoming>Flow_195rfn9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0bcs4qr" sourceRef="Gateway_07mdn92" targetRef="Activity_1i26g0z">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${loanType=="vehicleloan"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:callActivity id="Activity_1vwqlz8" name="Home Loan Process" calledElement="propertyLoanProcess">
+      <bpmn:extensionElements>
+        <camunda:in source="app" target="app" />
+        <camunda:in businessKey="#{execution.processBusinessKey}" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0oz0rh0</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lshgre</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="Activity_1i26g0z" name="Vehicle Loan Process" calledElement="vehicleLoanProcess">
+      <bpmn:extensionElements>
+        <camunda:in source="app" target="app" />
+        <camunda:in businessKey="#{execution.processBusinessKey}" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0bcs4qr</bpmn:incoming>
+      <bpmn:outgoing>Flow_195rfn9</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_0lshgre" sourceRef="Activity_1vwqlz8" targetRef="Event_1tnqkw3" />
+    <bpmn:sequenceFlow id="Flow_195rfn9" sourceRef="Activity_1i26g0z" targetRef="Event_1tnqkw3" />
+    <bpmn:textAnnotation id="TextAnnotation_0wym90t">
+      <bpmn:text>vehicle Loan</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1awaj38" sourceRef="Gateway_07mdn92" targetRef="TextAnnotation_0wym90t" />
+    <bpmn:textAnnotation id="TextAnnotation_01g4clz">
+      <bpmn:text>Home Loan</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0rphwf1" sourceRef="Gateway_07mdn92" targetRef="TextAnnotation_01g4clz" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="CamundaPocMainProcess">
+      <bpmndi:BPMNShape id="TextAnnotation_0wym90t_di" bpmnElement="TextAnnotation_0wym90t">
+        <dc:Bounds x="220" y="120" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_01g4clz_di" bpmnElement="TextAnnotation_01g4clz">
+        <dc:Bounds x="210" y="350" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_195rfn9_di" bpmnElement="Flow_195rfn9">
+        <di:waypoint x="510" y="120" />
+        <di:waypoint x="590" y="120" />
+        <di:waypoint x="590" y="232" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lshgre_di" bpmnElement="Flow_0lshgre">
+        <di:waypoint x="500" y="410" />
+        <di:waypoint x="590" y="410" />
+        <di:waypoint x="590" y="268" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bcs4qr_di" bpmnElement="Flow_0bcs4qr">
+        <di:waypoint x="340" y="212" />
+        <di:waypoint x="340" y="120" />
+        <di:waypoint x="410" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0oz0rh0_di" bpmnElement="Flow_0oz0rh0">
+        <di:waypoint x="340" y="262" />
+        <di:waypoint x="340" y="390" />
+        <di:waypoint x="400" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_198esmz_di" bpmnElement="Flow_198esmz">
+        <di:waypoint x="188" y="237" />
+        <di:waypoint x="315" y="237" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Gateway_07mdn92_di" bpmnElement="Gateway_07mdn92" isMarkerVisible="true">
+        <dc:Bounds x="315" y="212" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1tnqkw3_di" bpmnElement="Event_1tnqkw3">
+        <dc:Bounds x="572" y="232" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tn3eui_di" bpmnElement="Activity_1vwqlz8">
+        <dc:Bounds x="400" y="370" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jai2n1_di" bpmnElement="Activity_1i26g0z">
+        <dc:Bounds x="410" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="219" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1awaj38_di" bpmnElement="Association_1awaj38">
+        <di:waypoint x="330" y="222" />
+        <di:waypoint x="280" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0rphwf1_di" bpmnElement="Association_0rphwf1">
+        <di:waypoint x="330" y="252" />
+        <di:waypoint x="269" y="350" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
